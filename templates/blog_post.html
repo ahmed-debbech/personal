@@ -1,0 +1,90 @@
+{%- extends "base.html" %}
+
+{%- block head %}
+{{ super() }}
+{{- macros_seo::seo(config=config, title=page.title, description=page.summary | striptags | trim) }}
+{%- set section = get_section(path=page.ancestors | last) %}
+{%- if section.generate_feeds -%}
+  {%- for feed in config.feed_filenames -%}
+    {%- if feed is containing('atom') -%}
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="{{ get_url(path=section.path ~ feed, trailing_slash=false) | safe }}" />
+    {%- endif -%}
+    {%- if feed is containing('rss') -%}
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ get_url(path=section.path ~ feed, trailing_slash=false) | safe }}" />
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+{%- endblock head %}
+
+{%- block stylesheets %}
+{{ super() }}
+<link rel="stylesheet" href="{{ get_url(path='/blog.css', trailing_slash=false, cachebust=true) }}" />
+{%- endblock stylesheets %}
+
+{%- block content %}
+
+<div class="container post">
+  <a class="back" href={{ get_url(path="/blog") }}>Back to post list</a>
+  <article>
+    <header>
+      <h1>{{ page.title }}</h1>
+      <span>{{ page.date | date(format="%F") }} &middot; {{ page.reading_time }} minute read</span>
+      {%- if page.taxonomies.tags %}
+      <p>
+        {%- for tag in page.taxonomies.tags %}
+        <a href="{{ get_taxonomy_url(kind='tags', name=tag) }}">#{{ tag }}</a>
+        {%- endfor %}
+      </p>
+      {%- endif %}
+    </header>
+    <div>
+      {% if page.extra.preface %}
+      <div class="preface">
+        {{ page.extra.preface | striptags | markdown(inline=true) | safe }}
+      </div>
+      {% endif %}
+      {% if page.toc %}
+      <div class="table-of-contents">
+        <ul>
+          {% for h1 in page.toc %}
+            <li>
+              <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+                {% if h1.children %}
+                <ul>
+                  {% for h2 in h1.children %}
+                  <li>
+                    <a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {{ page.content | safe }}
+    </div>
+  </article>
+  <div>
+    {%- if section.generate_feeds -%}
+      {%- for feed in config.feed_filenames -%}
+        {%- if feed is containing('atom') -%}
+        <a href="{{ get_url(path=section.path ~ feed) | safe }}" style="display: inline-block; width: 2rem;" target="_blank">
+          {{ load_data(path="/assets/icons/rss.svg") | safe }}
+        </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  <div class="disclaimer">
+    This post has been written by humans only, unless otherwise explicitly stated.<br>
+    Opinions are solely my own and do not reflect those of any employer, past, present, or future.
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock scripts %}
