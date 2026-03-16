@@ -1,0 +1,22 @@
+services:
+  site:
+    build: ./site
+    ports:
+      - "2900:80"
+    restart: unless-stopped
+    networks: 
+      - net
+  blog:
+    build: 
+      context: ./blog
+      args:
+        HOST: localhost:2900
+    restart: unless-stopped
+    networks: 
+      - net
+    volumes:
+      - "./blog/content:/app/content"
+
+networks:
+  net:
+    driver: bridge

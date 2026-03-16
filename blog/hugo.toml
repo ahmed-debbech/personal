@@ -1,0 +1,11 @@
+baseURL = "https://debbech.com/blog"
+title = "Debbech Blog"
+theme = "hugo-PaperMod"
+
+[author]
+    name = "Ahmed Debbech"
+    email = "debbech.ahmed@gmail.com"
+
+mainSections = ["blog"]
+relativeURLs = true
+canonifyURLs = false

@@ -1,0 +1,5 @@
+[permalinks]
+    blog = "/:slug/"
+
+relativeURLs = true
+canonifyURLs = false

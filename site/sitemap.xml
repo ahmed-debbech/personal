@@ -1,0 +1,16 @@
+<?xml version=”1.0″ encoding=”UTF-8″?>
+
+<sitemapindex xmlns=”https://www.sitemaps.org/schemas/sitemap/0.9″>
+
+    <sitemap>
+        <loc>http://debbech.com/sitemap1.xml</loc>
+        <lastmod>2026-03-16T11:54:44.774Z</lastmod>
+    </sitemap>
+
+
+    <sitemap>
+        <loc>https://www.domain.com/blog/sitemap.xml</loc>
+        <lastmod>2026-03-16T18:42:55.769Z</lastmod>
+    </sitemap>
+
+</sitemapindex>
