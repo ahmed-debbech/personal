@@ -3,7 +3,7 @@
 {{- end -}}
 
 <!DOCTYPE html>
-{{- $theme := site.Params.defaultTheme | default "auto" }}
+{{- $theme := site.Params.defaultTheme | default "dark" }}
 {{- if eq $theme "dark" }}
 <html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}" data-theme="dark">
 {{- else if eq $theme "light" }}
