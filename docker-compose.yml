@@ -10,7 +10,7 @@ services:
     build: 
       context: ./blog
       args:
-        HOST: localhost:2900
+        HOST: debbech.com
     restart: unless-stopped
     networks: 
       - net
