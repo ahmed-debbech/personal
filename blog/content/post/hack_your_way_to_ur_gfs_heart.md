@@ -1,5 +1,4 @@
 ---
-title: Hack your way to your GF's heart
 date: 2026-05-04
 ---
 
